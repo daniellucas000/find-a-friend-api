@@ -2,7 +2,7 @@ import type { OrgsRepository } from "@/repositories/orgs-repository.js";
 import type { Org } from "@prisma/client";
 import { hash } from "bcryptjs";
 
-interface RegisterServiceRequest {
+interface RegisterUseCaseRequest {
     name: string
     email: string
     password: string
@@ -11,14 +11,14 @@ interface RegisterServiceRequest {
     whatsapp_number: string
 }
 
-interface RegisterServiceResponse {
+interface RegisterUseCaseResponse {
     org: Org
 }
 
-export class RegisterService {
+export class RegisterUseCase {
     constructor(private orgsRepository: OrgsRepository) {}
 
-    async execute({ name, email, password, cep, address, whatsapp_number }: RegisterServiceRequest): Promise<RegisterServiceResponse> {
+    async execute({ name, email, password, cep, address, whatsapp_number }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
         const password_hash = await hash(password, 6)
 
         const userWithSameEmail = await this.orgsRepository.findByEmail(email)
