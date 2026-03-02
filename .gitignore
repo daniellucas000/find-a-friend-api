@@ -3,6 +3,9 @@ dist
 uploads
 !uploads/*.gitkeep
 .env
+.env.production
 prisma/dev.db
 tmp
 !tmp/*.gitkeep
+.agents
+skills-lock.json
