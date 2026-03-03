@@ -1,4 +1,4 @@
-import { Prisma, type Org } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import type { OrgsRepository } from "../orgs-repository.js";
 import { prisma } from "@/lib/prisma.js";
 
@@ -21,4 +21,11 @@ export class PrismaOrgsRepository implements OrgsRepository {
         return org
     }
 
+    async findById(id: string) {
+        const org = await prisma.org.findFirst({
+            where: { id }
+        })
+
+        return org
+    }
 }
