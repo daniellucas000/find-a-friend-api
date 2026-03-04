@@ -8,6 +8,8 @@ interface RegisterUseCaseRequest {
     password: string
     cep: string
     address: string
+    city: string
+    state: string
     whatsapp_number: string
 }
 
@@ -18,7 +20,7 @@ interface RegisterUseCaseResponse {
 export class RegisterUseCase {
     constructor(private orgsRepository: OrgsRepository) {}
 
-    async execute({ name, email, password, cep, address, whatsapp_number }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
+    async execute({ name, email, password, cep, address, city, state, whatsapp_number }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
         const password_hash = await hash(password, 6)
 
         const userWithSameEmail = await this.orgsRepository.findByEmail(email)
@@ -33,6 +35,8 @@ export class RegisterUseCase {
             password: password_hash,
             cep,
             address,
+            city,
+            state,
             whatsapp_number
         })
 

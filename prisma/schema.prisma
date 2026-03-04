@@ -16,6 +16,8 @@ model Org {
   email           String   @unique
   cep             String
   address         String
+  city            String
+  state           String
   whatsapp_number String
   password        String
   created_at      DateTime @default(now())

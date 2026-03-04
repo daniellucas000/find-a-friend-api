@@ -16,6 +16,9 @@ export async function register(request: FastifyRequest , response: FastifyReply)
     const { name, email, password, cep, address, whatsapp_number } = registerBodySchema.parse(request.body)
 
     try {
+        const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        const { localidade, uf } = await response.json()
+
         const registerUseCase = makeRegisterUseCase()
 
         await registerUseCase.execute({
@@ -24,6 +27,8 @@ export async function register(request: FastifyRequest , response: FastifyReply)
             password,
             cep,
             address,
+            city: localidade,
+            state: uf,
             whatsapp_number
         })
     } catch(err) {
