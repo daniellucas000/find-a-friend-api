@@ -1,5 +1,5 @@
 import type { FastifyRequest, FastifyReply } from "fastify"
-import { string, z } from "zod"
+import { z } from "zod"
 import { makeListPetsUseCase } from "@/use-cases/factories/make-list-pets-use-case.js"
 
 export async function listPets(request: FastifyRequest , response: FastifyReply) {
@@ -18,7 +18,7 @@ export async function listPets(request: FastifyRequest , response: FastifyReply)
 
     const { pet } = await listPetsUseCase.execute(data)
 
-    return response.status(200).send({ pet })
+    return response.status(200).send({ pets: pet })
 
 }
 
