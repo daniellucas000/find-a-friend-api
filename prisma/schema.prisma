@@ -7,7 +7,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 model Org {
@@ -37,7 +36,7 @@ model Pet {
   environment        String
   photo              String
 
-  org                  Org                    @relation(fields: [org_id], references: [id])
+  org                  Org                    @relation(fields: [org_id], references: [id], onDelete: Cascade)
   org_id               String
   adoptionRequirements AdoptionRequirements[]
   petGalleries         PetGallery[]
@@ -48,7 +47,7 @@ model Pet {
 model PetGallery {
   id     String @id @default(uuid())
   image  String
-  pet    Pet    @relation(fields: [pet_id], references: [id])
+  pet    Pet    @relation(fields: [pet_id], references: [id], onDelete: Cascade)
   pet_id String
 
   @@map("pet_gallery")
@@ -57,6 +56,6 @@ model PetGallery {
 model AdoptionRequirements {
   id     String @id @default(uuid())
   title  String
-  pet    Pet    @relation(fields: [pet_id], references: [id])
+  pet    Pet    @relation(fields: [pet_id], references: [id], onDelete: Cascade)
   pet_id String
 }

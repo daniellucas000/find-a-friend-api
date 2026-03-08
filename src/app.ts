@@ -4,8 +4,16 @@ import { ZodError } from "zod";
 import { env } from "./env/index.js";
 import cors from "@fastify/cors";
 import swagger from "@fastify/swagger";
+import fastifyJwt from "@fastify/jwt";
 
 export const app = fastify()
+
+app.register(fastifyJwt, {
+    secret: env.JWT_SECRET,
+    sign: {
+        expiresIn: '10m'
+    }
+})
 
 app.register(cors, {
     origin: true,

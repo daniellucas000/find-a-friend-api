@@ -16,8 +16,8 @@ export async function register(request: FastifyRequest , response: FastifyReply)
     const { name, email, password, cep, address, whatsapp_number } = registerBodySchema.parse(request.body)
 
     try {
-        const response = await fetch(`https://brasilapi.com.br/api/cep/v1/${cep}`)
-        const { city, state } = await response.json()
+        const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        const { localidade, uf } = await response.json()
 
         const registerUseCase = makeRegisterUseCase()
 
@@ -27,8 +27,8 @@ export async function register(request: FastifyRequest , response: FastifyReply)
             password,
             cep,
             address,
-            city,
-            state,
+            city: localidade,
+            state: uf,
             whatsapp_number
         })
     } catch(err) {
@@ -40,5 +40,4 @@ export async function register(request: FastifyRequest , response: FastifyReply)
     }
 
     return response.status(201).send()
-
 }

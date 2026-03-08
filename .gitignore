@@ -2,8 +2,7 @@ node_modules
 dist
 uploads
 !uploads/*.gitkeep
-.env
-.env.production
+.env.dev
 prisma/dev.db
 tmp
 !tmp/*.gitkeep
