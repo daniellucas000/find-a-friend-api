@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "start": "node build/server.cjs",
-    "build": "prisma generate && tsup src --out-dir build",
+    "build": "prisma generate && prisma migrate deploy && tsup src --out-dir build",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage"
