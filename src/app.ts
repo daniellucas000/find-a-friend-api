@@ -3,6 +3,7 @@ import { appRoutes } from "./http/routes.js";
 import { ZodError } from "zod";
 import { env } from "./env/index.js";
 import cors from "@fastify/cors";
+import swagger from "@fastify/swagger";
 
 export const app = fastify()
 
@@ -10,6 +11,19 @@ app.register(cors, {
     origin: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     credentials: true,
+})
+
+app.register(swagger, {
+    openapi: {
+        info: {
+            title: 'Find a friend',
+            version: '1.0.0',
+        }
+    }
+})
+
+app.register(import('@scalar/fastify-api-reference'), {
+    routePrefix: '/reference',
 })
 
 app.register(appRoutes)
